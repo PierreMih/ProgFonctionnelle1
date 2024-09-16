@@ -47,9 +47,6 @@ let RemoveOneFruitFromList (fruits : Fruit list) (fruitToRemove : Fruit) =
     let isFruitToRemove fruit = fruit = fruitToRemove
     let indexToRemove = fruits |> List.findIndex isFruitToRemove
     List.removeAt indexToRemove fruits
-    // fruits
-    //     |> List.findIndex isFruitToRemove fruits
-    //     |> List.removeAt
 
 let fruitsListComplete3 = RemoveOneFruitFromList fruitsListComplete2 Fruit.Pineapple
 displayCountForEachFruit fruitsListComplete3

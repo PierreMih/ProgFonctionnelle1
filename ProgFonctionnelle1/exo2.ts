@@ -17,10 +17,12 @@ function addFruitToStock(name: string, quantity: number) {
         // modifie une propriété d'instance d'objet
         existingProduct.quantity += quantity;
     } else {
+        //fruitsStock n'est pas passé en paramètre
         fruitsStock.push({ id: fruitsStock.length + 1, name, quantity });
     }
 }
 
+// Ne retourne pas de résultat
 function deleteFruit(name: string) {
     fruitsStock = fruitsStock.filter((p) => p.name !== name);
     console.log(`${name} deleted from stock`);
@@ -32,10 +34,15 @@ function showStock() {
     });
 }
 
+// Ne retourne pas de résultat
 function sellFruit(name: string, quantity: number) {
+    // Utilise fruitsStock qui n'est pas passé en paramètre
+    // @ts-ignore
     const fruit = fruitsStock.find((p) => p.name === name);
 
+    // Utilise un tricks de syntaxe TS : if (fruit)
     if (fruit && fruit.quantity >= quantity) {
+        // Exploite la mutabilité de la propriété
         fruit.quantity -= quantity;
         console.log(`${quantity} ${name} sold`);
     } else {
@@ -43,6 +50,7 @@ function sellFruit(name: string, quantity: number) {
     }
 }
 
+// Pas de résultat, pas de vérification des résultats
 addFruitToStock("Pomme", 5);
 addFruitToStock("Citron", 10);
 sellFruit("Ananas", 2);
