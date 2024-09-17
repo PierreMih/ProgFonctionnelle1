@@ -23,15 +23,15 @@ let pineappleCount (fruits: Fruit list) =
 
 let displayCountForEachFruit (fruits: Fruit list) =
     let listOfPossibleFruits = Fruit.GetValues()
-    printfn ""
     for possibleFruit in listOfPossibleFruits do
         let thisFruitCount = fruitCount fruits possibleFruit
         let addSIfRequired (count: int) =
             if count > 1 then "s" else ""
         printfn $"{thisFruitCount} {Fruit.GetName(possibleFruit)}{addSIfRequired thisFruitCount}"
-    printfn ""
 
+printfn "Affichage du compte à partir de la liste"
 displayCountForEachFruit fruitsListComplete
+printfn ""
 
 let rec addNfruitsToList (fruits : Fruit list) (fruitToAdd : Fruit) (n : int) =
     if(n > 0) then
@@ -41,7 +41,9 @@ let rec addNfruitsToList (fruits : Fruit list) (fruitToAdd : Fruit) (n : int) =
     else
         fruits
 let fruitsListComplete2 = addNfruitsToList fruitsListComplete Fruit.Pineapple 100
+printfn "Ajout de 100 Pineapple"
 displayCountForEachFruit fruitsListComplete2
+printfn ""
 
 let RemoveOneFruitFromList (fruits : Fruit list) (fruitToRemove : Fruit) =
     let isFruitToRemove fruit = fruit = fruitToRemove
@@ -49,4 +51,20 @@ let RemoveOneFruitFromList (fruits : Fruit list) (fruitToRemove : Fruit) =
     List.removeAt indexToRemove fruits
 
 let fruitsListComplete3 = RemoveOneFruitFromList fruitsListComplete2 Fruit.Pineapple
+printfn "Retrait d'un Pineapple"
 displayCountForEachFruit fruitsListComplete3
+printfn ""
+
+//Renvoyer un dictionnaire/map
+let countForEachFruit (fruits : Fruit list) =
+    let fruitsCountMap = Map.empty<Fruit, int>
+    let listOfPossibleFruits = Fruit.GetValues()
+    Map (listOfPossibleFruits.Select(fun f -> (f, fruitCount fruits f)))
+
+let fruitsCountMap = countForEachFruit fruitsListComplete3
+printfn "Affichage du compte à partir d'une fonction qui retourne une Map<Fruit,int>"
+for keyValuePair in fruitsCountMap do
+    let addSIfRequired (count: int) =
+            if count > 1 then "s" else ""
+    printfn $"{keyValuePair.Value} {Fruit.GetName(keyValuePair.Key)}{addSIfRequired keyValuePair.Value}"
+printfn ""
