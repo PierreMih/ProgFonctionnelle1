@@ -57,7 +57,6 @@ printfn ""
 
 //Renvoyer un dictionnaire/map
 let countForEachFruit (fruits : Fruit list) =
-    let fruitsCountMap = Map.empty<Fruit, int>
     let listOfPossibleFruits = Fruit.GetValues()
     Map (listOfPossibleFruits.Select(fun f -> (f, fruitCount fruits f)))
 
