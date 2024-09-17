@@ -1,13 +1,16 @@
-﻿open System.Linq
+﻿module ProgFonctionnelle1.Main
 
-type Fruit =
-    | Apple = 1
-    | Pear = 2
-    | Pineapple = 3
-    
+open System.Linq
+open ProgFonctionnelle1.Types
+
 let fruitsList = [Fruit.Apple; Fruit.Apple; Fruit.Pineapple; Fruit.Pear; Fruit.Apple; Fruit.Pear]
-let fruitsListWithPear = Fruit.Pear :: fruitsList
-let fruitsListComplete = fruitsListWithPear @ [Fruit.Apple]
+let addFruitInFirstPlace (fruits : Fruit list) (fruit : Fruit) =
+    fruit :: fruits
+
+let fruitsListWithPear = addFruitInFirstPlace fruitsList Fruit.Pear
+let addFruitInLastPlace (fruits: Fruit list) (fruit : Fruit) =
+    fruits @ [fruit]
+let fruitsListComplete = addFruitInLastPlace fruitsListWithPear Fruit.Apple
 
 let fruitCount (fruits: Fruit list) (fruitToCount: Fruit) =
     fruits
@@ -35,7 +38,7 @@ printfn ""
 
 let rec addNfruitsToList (fruits : Fruit list) (fruitToAdd : Fruit) (n : int) =
     if(n > 0) then
-        let fruitsResult = fruitToAdd :: fruits
+        let fruitsResult = addFruitInFirstPlace fruits fruitToAdd
         let n2 = n-1
         addNfruitsToList fruitsResult fruitToAdd n2 
     else
